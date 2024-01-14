@@ -1,18 +1,18 @@
 from flask import Flask, render_template, request
-import ds_script
+import ds_script  # Import the script where 'generate_data' is defined
 
 app = Flask(__name__)
 
 @app.route('/form')
 def form():
-	return render_template('form.html')
+    return render_template('form.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
-	if request_method == 'POST':
-		data_from_form = request.form['InputData']
-		df = ds_script.generate_data(data_from_form)
-		return df_to_html()
+    if request.method == 'POST':
+        data_from_form = request.form['inputData']
+        df = ds_script.generate_data(data_from_form)
+        return df.to_html()  # Convert DataFrame to HTML to display it
 
-if __name__=='__main__':
-	app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
